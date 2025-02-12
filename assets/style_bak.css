@@ -1,0 +1,171 @@
+/* ======= Estilos Generales ======= */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+/* ======= Estilos del Menú Lateral ======= */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #007BFF;
+    color: white;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.menu-link {
+    display: block;
+    width: 80%;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    background-color: #0056b3;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s;
+}
+
+.menu-link:hover {
+    background-color: #003f7f;
+}
+
+/* ======= Botón de Salida ======= */
+.menu-link-exit {
+    display: block;
+    width: 80%;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    background-color: red;
+    margin: 5px;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.menu-link-exit:hover {
+    background-color: darkred;
+}
+
+/* ======= Estilos del Login ======= */
+.login-container {
+    width: 350px;
+    padding: 30px;
+    border: 2px solid #007BFF;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    background: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.login-container h2 {
+    margin-bottom: 20px;
+}
+
+.login-input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.login-button:hover {
+    background-color: #0056b3;
+}
+
+/* ======= Estilos de Tablas ======= */
+.data-table-container {
+    width: 80%;
+    margin: auto;
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.data-table th {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    text-align: center;
+}
+
+.data-table td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+
+/* ======= Estilos para Gráficos ======= */
+.graph-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+.graph-container h4 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* ======= Ajuste para Responsividad ======= */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 200px;
+    }
+
+    .menu-link,
+    .menu-link-exit {
+        width: 90%;
+    }
+
+    .login-container {
+        width: 90%;
+    }
+
+    .data-table-container {
+        width: 95%;
+    }
+
+    .graph-container {
+        width: 95%;
+    }
+}

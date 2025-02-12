@@ -1,0 +1,114 @@
+import dash
+import dash_bootstrap_components as dbc
+from dash import dcc, html, Input, Output, State, ctx
+
+# Importar módulos de la aplicación
+from modules import login, mod_tabla_posiciones, mod_estadisticas, mod_antropometria
+
+# Inicializar la aplicación Dash
+app = dash.Dash(__name__, suppress_callback_exceptions=True, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
+
+# 📌 Estilos para el diseño
+SIDEBAR_STYLE = {
+    "position": "fixed",
+    "top": "0",
+    "left": "0",
+    "width": "250px",
+    "height": "100vh",
+    "padding": "20px",
+    "background-color": "#007BFF",
+    "color": "white"
+}
+
+CONTENT_STYLE = {
+    "margin-left": "270px",  # 🔹 Espacio para que el contenido no se superponga con el menú
+    "padding": "20px",
+    "width": "calc(100% - 270px)",  # 🔹 Se ajusta automáticamente al ancho restante
+    "height": "100vh",
+    "overflow": "auto"
+}
+
+# Definir la estructura base
+app.layout = html.Div([
+    dcc.Location(id="url", refresh=False),
+    dcc.Store(id="session-store", storage_type="session"),  # Almacenar sesión del usuario
+    html.Div(id="sidebar-menu", style=SIDEBAR_STYLE),  # 📌 Menú lateral dinámico
+    html.Div(id="page-content", style=CONTENT_STYLE)  # 📌 Contenido principal
+])
+
+# 📌 Callback para actualizar el menú y resaltar la opción activa
+@app.callback(
+    Output("sidebar-menu", "children"),
+    Input("url", "pathname")
+)
+def update_active_menu(pathname):
+    return html.Div([
+        html.H2("Menú", className="text-center"),
+        html.Hr(),
+        dcc.Link("🏆 Tabla de Posiciones", href="/tabla-posiciones",
+                 className="menu-link active" if pathname == "/tabla-posiciones" else "menu-link"),
+        dcc.Link("📊 Estadísticas de Jugadores", href="/estadisticas",
+                 className="menu-link active" if pathname == "/estadisticas" else "menu-link"),
+        dcc.Link("⚕️ Datos Antropométricos", href="/antropometria",
+                 className="menu-link active" if pathname == "/antropometria" else "menu-link"),
+        dcc.Link("❌ Cerrar Sesión", href="/logout", className="menu-link-exit")
+    ], className="sidebar")
+
+# 📌 Callback para manejar la autenticación y el cierre de sesión
+@app.callback(
+    Output("url", "pathname"),
+    Output("session-store", "data"),
+    Input("login-button", "n_clicks"),
+    State("username", "value"),
+    State("password", "value"),
+    State("session-store", "data"),
+    prevent_initial_call=True
+)
+def handle_authentication(login_clicks, username, password, session_data):
+    triggered_id = ctx.triggered_id or ""
+
+    if triggered_id == "login-button":  # 🏆 Inicio de sesión
+        valid_users = {"Admin": "admin"}  # Base de datos simulada
+
+        if username in valid_users and valid_users[username] == password:
+            return "/home", {"logged_in": True}
+        else:
+            return dash.no_update, {"logged_in": False}  
+
+    return dash.no_update, dash.no_update  
+
+# 📌 Callback para manejar la navegación entre páginas
+@app.callback(
+    Output("page-content", "children"),
+    Input("url", "pathname"),
+    State("session-store", "data")
+)
+def display_page(pathname, session_data):
+    # Si no hay sesión iniciada, mostrar el Login
+    if not session_data or not session_data.get("logged_in", False):
+        return login.layout
+
+    # 📌 Sidebar (Menú Lateral)
+    sidebar = html.Div(id="sidebar-menu", className="sidebar")
+
+    # 📌 Área de Contenido (Dashboards)
+    content = html.Div(style=CONTENT_STYLE)
+
+    # 📌 Mostrar la página correcta en el contenido
+    if pathname == "/tabla-posiciones":
+        content.children = mod_tabla_posiciones.layout
+    elif pathname == "/estadisticas":
+        content.children = mod_estadisticas.layout
+    elif pathname == "/antropometria":
+        content.children = mod_antropometria.layout
+    elif pathname == "/logout":
+        return login.layout  # Redirige al Login tras cerrar sesión
+    else:
+        content.children = html.H3("Bienvenido al Dashboard", className="text-center")
+
+    return html.Div([sidebar, content])
+
+# Ejecutar la aplicación
+if __name__ == "__main__":
+    app.run_server(debug=True)

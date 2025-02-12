@@ -1,0 +1,149 @@
+/* assets/style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+  }
+
+/* Contenedor principal del menú */
+.menu-container {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: #2c3e50;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos base del menú */
+.custom-menu {
+    padding: 1rem 0;
+    background-color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+/* Estilos para los enlaces del menú */
+.menu-link {
+    position: relative;
+    padding: 12px 20px;
+    color: #ecf0f1 !important;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
+    display: flex;
+    align-items: center;
+}
+
+/* Efecto hover con línea inferior */
+.menu-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #3498db;
+    transition: width 0.3s ease;
+}
+
+.menu-link:hover {
+    background-color: rgba(236, 240, 241, 0.1);
+    border-left-color: #3498db;
+}
+
+.menu-link:hover::after {
+    width: 100%;
+}
+
+/* Estilos para submenús - Colores actualizados */
+.submenu {
+    background-color: #1a252f !important; /* Color más oscuro que el fondo principal */
+    transform-origin: top;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+    padding: 0.5rem 0;
+    margin-top: 2px;
+    border-left: 2px solid #3498db;
+}
+
+.submenu.show {
+    transform: scaleY(1);
+    opacity: 1;
+}
+
+/* Enlaces del submenú - Colores actualizados */
+.submenu-link {
+    color: #ffffff !important; /* Color más claro para mejor visibilidad */
+    padding: 8px 20px 8px 40px !important;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    background-color: transparent !important;
+}
+
+.submenu-link:hover {
+    color: #3498db !important;
+    background-color: rgba(52, 152, 219, 0.1) !important;
+    padding-left: 45px !important;
+}
+
+/* Iconos */
+.menu-link i {
+    width: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.menu-link:hover i {
+    transform: translateX(3px);
+}
+
+/* Flecha del dropdown */
+.fa-chevron-down {
+    transition: transform 0.3s ease;
+}
+
+[aria-expanded="true"] .fa-chevron-down {
+    transform: rotate(180deg);
+}
+
+/* Contenedor del contenido principal */
+.content-container {
+    margin: 0;
+    margin: 120px;
+    top: 0;
+    width: 100%;
+    height: auto;
+}
+
+/* Animaciones adicionales */
+.menu-item-with-submenu {
+    position: relative;
+}
+
+.menu-item-with-submenu::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+}
+
+.menu-item-with-submenu:hover::before {
+    background-color: #3498db;
+}
+
+/* Estado activo */
+.menu-link.active {
+    background-color: rgba(52, 152, 219, 0.2);
+    border-left-color: #3498db;
+}
+
+/* Estado activo para submenús */
+.submenu-link.active {
+    background-color: rgba(52, 152, 219, 0.2) !important;
+    color: #3498db !important;
+    border-left: 2px solid #3498db;
+}

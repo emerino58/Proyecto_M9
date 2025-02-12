@@ -1,0 +1,69 @@
+/* 📌 Estilos Generales */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* 📌 Estilos del Menú Lateral */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #007BFF;
+    color: white;
+    padding: 20px;
+}
+
+/* 📌 Estilos de los Enlaces del Menú */
+.menu-link {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    transition: all 0.3s;
+}
+
+.menu-link:hover {
+    background-color: #0056b3;
+}
+
+/* 📌 Estilo para la Opción Activa en el Menú */
+.menu-link.active {
+    background-color: #ffffff;  /* Fondo blanco para opción activa */
+    color: #007BFF !important;   /* Texto azul para opción activa */
+    font-weight: bold;
+    border-left: 5px solid #ffffff;  /* Borde resaltado */
+}
+
+/* 📌 Estilo para el Botón de Cerrar Sesión */
+.menu-link-exit {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #ff4d4d;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.menu-link-exit:hover {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+/* 📌 Estilos del Contenido */
+#page-content {
+    margin-left: 270px;  /* Deja espacio para el menú */
+    padding: 20px;
+    width: calc(100% - 270px);
+    overflow: auto;
+    height: 100vh;
+}
