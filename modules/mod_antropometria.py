@@ -74,7 +74,7 @@ def update_boxplot(metric):
     fig = px.box(df, x="ID Equipo", y=metric, title=f"Comparación de {metric} entre Equipos")
     return fig
 
-# 🔹 Callback para mostrar la tabla de datos antropométricos según el equipo seleccionado
+# 🔹 Callback para mostrar la tabla de datos antropométricos con scroll vertical
 @callback(
     Output("player-table-container", "children"),
     Input("table-team-dropdown", "value")
@@ -85,7 +85,8 @@ def update_player_table(selected_team):
     return dash_table.DataTable(
         data=filtered_df.to_dict('records'),
         columns=[{"name": col, "id": col} for col in df.columns],
-        style_table={'overflowX': 'auto', 'width': '100%'},
+        fixed_rows={'headers': True},  # 📌 Mantiene los encabezados visibles mientras se desplaza
+        style_table={'overflowX': 'auto', 'width': '100%', 'maxHeight': '500px', 'overflowY': 'auto'},  # 📌 Activa el scroll vertical
         style_cell={'textAlign': 'center'},
         style_header={'backgroundColor': '#007BFF', 'color': 'white', 'fontWeight': 'bold'}
     )
