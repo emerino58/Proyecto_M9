@@ -70,7 +70,8 @@ def display_page(pathname, session_data):
     elif pathname == "/logout":
         return login.layout  
     else:
-        content.children = html.H3("Bienvenido al Dashboard", className="text-center")
+        # content.children = html.H3("Bienvenido al Dashboard", className="text-center")
+        content.children = html.H3(" ", className="text-center")
 
     return html.Div([sidebar, content])
 
