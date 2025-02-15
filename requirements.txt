@@ -5,4 +5,5 @@ plotly
 openpyxl
 dash_ag_grid
 reportlab
-guicorn
+flask
+gunicorn 
